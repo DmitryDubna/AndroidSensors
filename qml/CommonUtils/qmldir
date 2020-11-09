@@ -1,0 +1,3 @@
+module CommonUtils
+singleton SensorUtils 1.0 SensorUtils.qml
+singleton ResourceUtils 1.0 ResourceUtils.qml

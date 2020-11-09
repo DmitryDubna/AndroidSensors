@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qml/CommonUtils/qmldir</file>
+        <file>qml/CommonUtils/SensorUtils.qml</file>
+        <file>qml/SensorDetailPages/LightSensorDetailPage.qml</file>
+        <file>qml/SensorPanels/AccelerometerPanel.qml</file>
+        <file>qml/SensorPanels/AltimeterPanel.qml</file>
+        <file>qml/SensorPanels/AmbientLightSensorPanel.qml</file>
+        <file>qml/SensorPanels/AmbientTemperatureSensorPanel.qml</file>
+        <file>qml/SensorPanels/CompassPanel.qml</file>
+        <file>qml/SensorPanels/DistanceSensorPanel.qml</file>
+        <file>qml/SensorPanels/GyroscopePanel.qml</file>
+        <file>qml/SensorPanels/HolsterSensorPanel.qml</file>
+        <file>qml/SensorPanels/HumiditySensorPanel.qml</file>
+        <file>qml/SensorPanels/IRProximitySensorPanel.qml</file>
+        <file>qml/SensorPanels/LidSensorPanel.qml</file>
+        <file>qml/SensorPanels/LightSensorPanel.qml</file>
+        <file>qml/SensorPanels/MagnetometerPanel.qml</file>
+        <file>qml/SensorPanels/OrientationSensorPanel.qml</file>
+        <file>qml/SensorPanels/PressureSensorPanel.qml</file>
+        <file>qml/SensorPanels/ProximitySensorPanel.qml</file>
+        <file>qml/SensorPanels/RotationSensorPanel.qml</file>
+        <file>qml/SensorPanels/SensorPanel.qml</file>
+        <file>qml/SensorPanels/TapSensorPanel.qml</file>
+        <file>qml/SensorPanels/TiltSensorPanel.qml</file>
+        <file>qml/SensorPanels/qmldir</file>
+        <file>qml/resources/lamp-2.png</file>
+        <file>qml/resources/lamp_200x300.png</file>
+        <file>qml/resources/lamp_100x150.png</file>
+        <file>qml/MainControls/MainSensorPanel.qml</file>
+        <file>qml/MainControls/qmldir</file>
+        <file>qml/MainControls/SensorListView.qml</file>
+        <file>qml/CommonUtils/ResourceUtils.qml</file>
+        <file>qml/Logic/SensorsAppModel.qml</file>
+        <file>qml/Logic/qmldir</file>
+    </qresource>
+</RCC>

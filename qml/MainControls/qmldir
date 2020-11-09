@@ -1,0 +1,4 @@
+module MainControls
+MainSensorPanel 1.0 MainSensorPanel.qml
+SensorListView 1.0 SensorListView.qml
+

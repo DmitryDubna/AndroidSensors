@@ -1,0 +1,2 @@
+module SensorPanels
+AccelerometerPanel 1.0 AccelerometerPanel.qml
