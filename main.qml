@@ -13,7 +13,7 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Android Sensors")
 
 
     SensorsAppModel {
@@ -44,6 +44,7 @@ ApplicationWindow {
             Label {
                 id: lblHeaderTitle
                 text: stackView.currentItem.title
+                font.pixelSize: 20
                 elide: Label.ElideRight
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignVCenter

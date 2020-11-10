@@ -43,58 +43,58 @@ SensorPanel {
             id: txtLight
             verticalAlignment: Text.AlignVCenter
         }
-        Rectangle {
-            color: "transparent"
-            width: 100; height: 150
+//        Rectangle {
+//            color: "transparent"
+//            width: 100; height: 150
 
-            Image {
-                id: imgLamp
-                anchors.fill: parent
-                source: ResourceUtils.smallLampIconPath
-                fillMode: Image.PreserveAspectFit
-                visible: false
-            }
-            BrightnessContrast {
-                id: bcLamp
-                anchors.fill: imgLamp
-                source: imgLamp
-                //                        brightness: root.hovered ? 0.4 : 0.7
-            }
-        }
+//            Image {
+//                id: imgLamp
+//                anchors.fill: parent
+//                source: ResourceUtils.smallLampIconPath
+//                fillMode: Image.PreserveAspectFit
+//                visible: false
+//            }
+//            BrightnessContrast {
+//                id: bcLamp
+//                anchors.fill: imgLamp
+//                source: imgLamp
+//                //                        brightness: root.hovered ? 0.4 : 0.7
+//            }
+//        }
 
         Component.onCompleted: readValues()
     }
 
 
     function readValues() {
-        txtLight.text = "Значение:      " +
+        txtLight.text = "Освещенность:      " +
                 (sensor && sensor.reading ? SensorUtils.getAmbientLightDesc(sensor.reading.lightLevel): "Неизвестно")
-        if (sensor && sensor.reading)
-            updateLampView(sensor.reading.lightLevel)
+//        if (sensor && sensor.reading)
+//            updateLampView(sensor.reading.lightLevel)
     }
 
 
-    function updateLampView(lightLevel)
-    {
-        switch(lightLevel)
-        {
-        case AmbientLightReading.Dark:
-            bcLamp.brightness = -0.7
-            break;
-        case AmbientLightReading.Twilight:
-            bcLamp.brightness = -0.2
-            break;
-        case AmbientLightReading.Light:
-            bcLamp.brightness = 0
-            break;
-        case AmbientLightReading.Bright:
-            bcLamp.brightness = 0.3
-            break;
-        case AmbientLightReading.Sunny:
-            bcLamp.brightness = 0.5
-            break;
-        default:
-            break;
-        }
-    }
+//    function updateLampView(lightLevel)
+//    {
+//        switch(lightLevel)
+//        {
+//        case AmbientLightReading.Dark:
+//            bcLamp.brightness = -0.7
+//            break;
+//        case AmbientLightReading.Twilight:
+//            bcLamp.brightness = -0.2
+//            break;
+//        case AmbientLightReading.Light:
+//            bcLamp.brightness = 0
+//            break;
+//        case AmbientLightReading.Bright:
+//            bcLamp.brightness = 0.3
+//            break;
+//        case AmbientLightReading.Sunny:
+//            bcLamp.brightness = 0.5
+//            break;
+//        default:
+//            break;
+//        }
+//    }
 }

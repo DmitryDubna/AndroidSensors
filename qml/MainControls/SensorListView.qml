@@ -24,7 +24,6 @@ GroupBox {
     label: Text {
         id: txtTitle
         text: qsTr(root.title)
-//        font.pixelSize: 12
     }
 
 

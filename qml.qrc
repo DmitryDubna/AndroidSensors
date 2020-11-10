@@ -34,5 +34,7 @@
         <file>qml/CommonUtils/ResourceUtils.qml</file>
         <file>qml/Logic/SensorsAppModel.qml</file>
         <file>qml/Logic/qmldir</file>
+        <file>qml/SensorDetailPages/CompassDetailPage.qml</file>
+        <file>qml/SensorDetailPages/CompassView.qml</file>
     </qresource>
 </RCC>

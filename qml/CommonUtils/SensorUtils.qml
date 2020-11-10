@@ -49,6 +49,7 @@ QtObject {
    ])
 
 
+
     function createSensor(sensorTypeName, parent) {
         // получить имя типа без Q
         var name = sensorTypeName.substr(1)
@@ -87,7 +88,8 @@ QtObject {
     function loadSensorDetailPage(sensorName, parent) {
         var page = null
         // определить имя qml-компонента по имени датчика
-        const qmlCompName = `qrc:/qml/SensorDetailPages/${sensorName.substr(1)}DetailPage.qml`
+//        const qmlCompName = `qrc:/qml/SensorDetailPages/${sensorName.substr(1)}DetailPage.qml`
+        const qmlCompName = findDetailPageBySensorName(sensorName)
         // если компонент найден, загрузить
         if (!qmlCompName)
             return
@@ -102,6 +104,18 @@ QtObject {
             page.title = mapSensorTitles.get(sensorName)
         }
         return page
+    }
+
+
+    function findDetailPageBySensorName(sensorName) {
+        switch(sensorName)
+        {
+        case "QAmbientLightSensor":
+            return `qrc:/qml/SensorDetailPages/LightSensorDetailPage.qml`
+
+        default:
+            return `qrc:/qml/SensorDetailPages/${sensorName.substr(1)}DetailPage.qml`
+        }
     }
 
 

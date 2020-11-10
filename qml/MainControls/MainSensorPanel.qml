@@ -16,36 +16,6 @@ Page {
 
     signal sensorPanelClicked(string sensorTypeName)
 
-//    Component.onCompleted: init()
-
-//    function init() {
-
-//        // получить список типов датчиков
-//        var {types: sensorTypes, titles: sensorTitles} = SensorUtils.getAvailableSensorTypes()
-//        // отобразить список имен датчиков
-//        sensorListView.setSensorNames(sensorTitles)
-//        // сформировать панели для всех доступных датчиков
-//        initSensorPanels(sensorTypes)
-//        // запустить опрос всех датчиков
-//        Array.from(containerSensorPanels.children).forEach(panel => panel.active = true)
-//    }
-
-//    function initSensorPanels(sensorTypes) {
-//        sensorTypes.forEach(type => initSensorPanel(type))
-//    }
-
-
-//    function initSensorPanel(sensorName) {
-//        // создать экземпляр ...
-//        var panel = SensorUtils.loadSensorPanel(sensorName, containerSensorPanels)
-//        // ... и настроить его
-//        panel.anchors.left = containerSensorPanels.left
-//        panel.anchors.right = containerSensorPanels.right
-//        panel.anchors.margins = marginValue
-//        panel.color = "lightgreen"
-//        panel.clicked.connect(() => sensorPanelClicked(sensorName))
-//    }
-
 
     function init(model) {
         this.model = model
@@ -53,8 +23,6 @@ Page {
         fillSensorsList(model)
         // сформировать панели для всех доступных датчиков
         initSensorPanels(model.sensors)
-        // запустить опрос всех датчиков
-//        Array.from(containerSensorPanels.children).forEach(panel => panel.active = true)
     }
 
 

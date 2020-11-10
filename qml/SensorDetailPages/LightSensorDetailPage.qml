@@ -9,8 +9,19 @@ import CommonUtils 1.0
 
 Page {
     id: root
+
+    enum DisplayType {
+        Unknown,
+        Lux,
+        LightLevel
+    }
+
     property string backColor: "black"
     property string fontColor: "white"
+    property var sensor: undefined
+    property var displayType: LightSensorDetailPage.DisplayType.Unknowm
+
+
 
     background: Rectangle {
         anchors.fill: parent
@@ -18,78 +29,22 @@ Page {
     }
 
 
-//    // ===== Датчик света =====
-//    LightSensor {
-//        id: sensor
-//        skipDuplicates: true
-//        active: false
-
-//        onReadingChanged: readValues()
-//        Component.onCompleted: this.active = true
-//    }
-
-
-//    contentItem: ColumnLayout {
-//        anchors.fill: parent
-
-//        Rectangle {
-//            color: "transparent"
-//            Layout.fillWidth: true
-//            Layout.fillHeight: true
-
-//            Image {
-//                id: imgLamp
-//                anchors.centerIn: parent
-//                source: ResourceUtils.bigLampIconPath
-//                fillMode: Image.PreserveAspectFit
-//                visible: false
-//            }
-//            BrightnessContrast {
-//                id: bcLamp
-//                anchors.fill: imgLamp
-//                source: imgLamp
-//            }
-//        }
-//        Rectangle {
-//            id: rectText
-//            color: "transparent"
-//            Layout.alignment: Qt.AlignCenter
-//            Layout.fillWidth: true
-//            height: fontMetrics.height * 4
-
-//            FontMetrics {
-//                id: fontMetrics
-//            }
-
-//            Text {
-//                id: txtLightValue
-//                text: "Неизвестно"
-//                font.pixelSize: 20
-//                font.bold: true
-//                anchors.centerIn: parent
-//                color: fontColor
-//            }
-//        }
-//    }
-
-
-
-//    // ===== Датчик света =====
-//    LightSensor {
-//        id: sensor
-//        skipDuplicates: true
-//        active: false
-
-//        onReadingChanged: readValues()
-//        Component.onCompleted: this.active = true
-//    }
-
-    property var sensor: undefined
-
     function setSensor(sensor) {
         this.sensor = sensor
-        sensor.readingChanged.connect(readValues)
-//        sensor.active = true
+        sensor.readingChanged.connect(updateValues)
+
+        if (sensor instanceof LightSensor) {
+            displayType = LightSensorDetailPage.DisplayType.Lux
+            txtTitle.text = "Интенсивность света:"
+        } else if (sensor instanceof AmbientLightSensor) {
+            displayType = LightSensorDetailPage.DisplayType.LightLevel
+            txtTitle.text = "Освещенность:"
+        } else {
+            displayType = LightSensorDetailPage.DisplayType.Unknown
+            txtTitle.text = ""
+        }
+
+        updateValues()
     }
 
 
@@ -114,39 +69,94 @@ Page {
                 source: imgLamp
             }
         }
-        Rectangle {
-            id: rectText
-            color: "transparent"
-            Layout.alignment: Qt.AlignCenter
-            Layout.fillWidth: true
-            height: fontMetrics.height * 4
 
-            FontMetrics {
-                id: fontMetrics
-            }
-
-            Text {
-                id: txtLightValue
-                text: "Неизвестно"
-                font.pixelSize: 20
-                font.bold: true
-                anchors.centerIn: parent
-                color: fontColor
-            }
+        Label {
+            id: txtTitle
+            font.pixelSize: 20
+            font.bold: true
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: fontColor
+            elide: Text.ElideMiddle
         }
+        Label {
+            id: txtLightValue
+            font.pixelSize: 20
+            font.bold: true
+            anchors.horizontalCenter: parent.horizontalCenter
+            bottomPadding: 20
+            color: fontColor
+            elide: Text.ElideMiddle
+        }
+
+//        Rectangle {
+//            id: rectText
+//            color: "transparent"
+//            Layout.alignment: Qt.AlignCenter
+//            Layout.fillWidth: true
+//            height: fontMetrics.height * 8
+////            height: contentHeight
+
+//            FontMetrics {
+//                id: fontMetrics
+//            }
+
+//            Text {
+//                id: txtTitle
+//                font.pixelSize: 20
+//                font.bold: true
+//                anchors.centerIn: parent
+//                anchors.top: parent.top
+//                color: fontColor
+//                elide: Text.ElideMiddle
+//            }
+
+//            Text {
+//                id: txtLightValue
+//                text: "Неизвестно"
+//                font.pixelSize: 20
+//                font.bold: true
+//                anchors.centerIn: parent
+//                anchors.top: txtTitle.bottom
+//                color: fontColor
+//                elide: Text.ElideMiddle
+//            }
+//        }
     }
 
 
+    function updateValues() {
+        var {label, bright} = getSensorInfo()
+        txtLightValue.text = label
+        bcLamp.brightness = bright
+
+    }
 
 
+    function getSensorInfo() {
+        let value = 0
+        let bright = 0
+        let label = "Неизвестно"
 
-    function readValues() {
-        txtLightValue.text = "Интенсивность света:      " +
-                        (sensor.reading ? sensor.reading.illuminance + " лк" : "Неизвестно")
-        if (sensor.reading) {
-            bcLamp.brightness = brightnessFromLux(sensor.reading.illuminance)
-//            console.log(`яркость = ${bcLamp.brightness}`)
+        if (sensor) {
+            switch(displayType)
+            {
+            case LightSensorDetailPage.DisplayType.Lux:
+                value = (sensor.reading ? sensor.reading.illuminance : undefined)
+                label = (value !== undefined ? `${value} лк` : "Неизвестно")
+                bright = (value !== undefined ? brightnessFromLux(value) : 0)
+                break
+
+            case LightSensorDetailPage.DisplayType.LightLevel:
+                value = (sensor.reading ? sensor.reading.lightLevel : undefined)
+                label = (value ? SensorUtils.getAmbientLightDesc(value) : "Неизвестно")
+                bright = (value ? brightnessFromLightLevel(value) : 0)
+                break
+
+            default:
+                break
+            }
         }
+        return {label, bright}
     }
 
 
@@ -155,6 +165,26 @@ Page {
         var max = 0.5
         lux = (lux > 1000 ? 1000 : lux)
         return (min + (max - min) / 1000 * lux)
+    }
+
+
+    function brightnessFromLightLevel(lightLevel)
+    {
+        switch(lightLevel)
+        {
+        case AmbientLightReading.Dark:
+            return -0.7
+        case AmbientLightReading.Twilight:
+            return -0.4
+        case AmbientLightReading.Light:
+            return 0
+        case AmbientLightReading.Bright:
+            return 0.3
+        case AmbientLightReading.Sunny:
+            return 0.5
+        default:
+            break;
+        }
     }
 }
 
