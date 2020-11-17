@@ -7,9 +7,7 @@
 //import CommonUtils 1.0
 
 
-//Canvas {
-//    id: canvas
-
+//Item {
 //    property int dialSize: Math.min(width, height)
 //    property int majorMarkSize: 20
 //    property int minorMarkSize: 10
@@ -23,225 +21,244 @@
 //    property var azimuth: 0
 
 //    property var mapPoles: new Map([
-//                                       [0,   "С"],
-//                                       [45,  "СВ"],
-//                                       [90,  "В"],
-//                                       [135, "ЮВ"],
-//                                       [180, "Ю"],
-//                                       [225, "ЮЗ"],
-//                                       [270, "З"],
-//                                       [315, "СЗ"]
-//                                   ])
-
+//                                      [0,   "С"],
+//                                      [45,  "СВ"],
+//                                      [90,  "В"],
+//                                      [135, "ЮВ"],
+//                                      [180, "Ю"],
+//                                      [225, "ЮЗ"],
+//                                      [270, "З"],
+//                                      [315, "СЗ"]
+//                                  ])
 //    width: 300
 //    height: 300
 
-//    rotation: -azimuth
+////    rotation: -azimuth
 
+////    function setAzimuth(azimuth) {
+////        this.azimuth = (azimuth ? azimuth : 0)
+//////        canvas.requestPaint()
+////    }
 
-//    function setAzimuth(azimuth) {
-//        this.azimuth = (azimuth ? azimuth : 0)
+//    onAzimuthChanged: {
 //        canvas.requestPaint()
 //    }
 
 
-//    function drawCompass() {
-//        // получить контекст
-//        var ctx = canvas.getContext("2d")
-//        // очистить
-//        ctx.reset()
-//        // деления градусов
-//        drawDegreeMarks(ctx)
-//        // большие насечки
-//        drawMajorMarks(ctx)
-//        // маленькие насечки
-//        drawMinorMarks(ctx)
-//        // стрелка
-//        drawArrow(ctx)
-//        // значение компаса
-//        drawValue(ctx)
-//    }
 
+//    Canvas {
+//        id: canvas
+//        anchors.fill: parent
+//        rotation: -azimuth
 
-//    function drawDegreeMarks(ctx) {
-//        ctx.beginPath();
-//        // настройки
-//        ctx.strokeStyle = "gray"
-//        ctx.lineWidth = 0.5
-//        //
-//        for(let i = 0; i < 360; i+=1) {
-//            // сместить начало координат в центр циферблата
-//            ctx.translate(width / 2, height / 2)
-//            // повернуть относительно центра циферблата
-//            ctx.rotate(i * Math.PI / 180)
-//            //
-//            // позиция насечки
-//            const majorMarkY1 = -dialSize / 2 + majorLetterSize + itemSpacing
-//            const majorMarkY2 = majorMarkY1 + majorMarkSize
-//            ctx.moveTo(0, majorMarkY1)
-//            ctx.lineTo(0, majorMarkY2)
-//            // сбросить трансформации
-//            ctx.resetTransform()
+//        function drawCompass() {
+//            // получить контекст
+//            var ctx = canvas.getContext("2d")
+//            // очистить
+//            ctx.reset()
+//            // деления градусов
+//            drawDegreeMarks(ctx)
+//            // большие насечки
+//            drawMajorMarks(ctx)
+//            // маленькие насечки
+//            drawMinorMarks(ctx)
+////            // стрелка
+////            drawArrow(ctx)
+//            // значение компаса
+//            drawValue(ctx)
 //        }
-//        // отрисовать буфер
-//        ctx.stroke()
-//    }
 
 
-//    function drawMajorMarks(ctx) {
-//        ctx.beginPath();
-//        // настройки крупных насечек
-//        ctx.strokeStyle = majorMarkColor
-//        ctx.fillStyle = majorMarkColor
-//        ctx.font = "bold 18px serif"
-//        ctx.lineWidth = 3
-//        ctx.textAlign = "center"
-//        //
-//        for(let i = 0; i < 360; i+=45) {
-//            // сместить начало координат в центр циферблата
-//            ctx.translate(width / 2, height / 2)
-//            // повернуть относительно центра циферблата
-//            ctx.rotate(i * Math.PI / 180)
+//        function drawDegreeMarks(ctx) {
+//            ctx.beginPath();
+//            // настройки
+//            ctx.strokeStyle = "gray"
+//            ctx.lineWidth = 0.5
 //            //
-//            // текст насечки
-//            const markLabel = i
-//            const labelX = 0
-//            const labelY = -dialSize/*height*/ / 2 + majorLetterSize
-//            // отобразить текст
-//            if (i % 90 === 0)
-//                ctx.fillText(markLabel, labelX, labelY)
-//            //
-//            // позиция насечки
-//            const majorMarkY1 = labelY + itemSpacing
-//            const majorMarkY2 = majorMarkY1 + majorMarkSize
-//            ctx.moveTo(0, majorMarkY1)
-//            ctx.lineTo(0, majorMarkY2)
-//            //
-//            // полюс
-//            const poleLetter = mapPoles.get(i)
-//            if (poleLetter) {
-//                // сохранить контекст
-//                ctx.save()
-//                // привязать вывод текста к его центру
-//                ctx.textBaseline = "middle"
-//                // сместить контекст в центр буквы
-//                const poleY = majorMarkY2 + itemSpacing + 20
-//                ctx.translate(labelX, poleY)
-//                // развернуть букву в вертикальное положение
-//                const letterAngle = -i - canvas.rotation
-//                ctx.rotate((letterAngle)* Math.PI / 180)
-//                // шрифт
-//                const fontSize = (poleLetter.length === 1 ? 18 : 12)
-//                ctx.font = `bold ${fontSize}px serif`
-//                // отобразить букву
-//                ctx.fillText(poleLetter, 0, 0)
-//                // восстановить контекст
-//                ctx.restore()
+//            for(let i = 0; i < 360; i+=1) {
+//                // сместить начало координат в центр циферблата
+//                ctx.translate(width / 2, height / 2)
+//                // повернуть относительно центра циферблата
+//                ctx.rotate(i * Math.PI / 180)
+//                //
+//                // позиция насечки
+//                const majorMarkY1 = -dialSize / 2 + majorLetterSize + itemSpacing
+//                const majorMarkY2 = majorMarkY1 + majorMarkSize
+//                ctx.moveTo(0, majorMarkY1)
+//                ctx.lineTo(0, majorMarkY2)
+//                // сбросить трансформации
+//                ctx.resetTransform()
 //            }
-//            // сбросить трансформации
-//            ctx.resetTransform()
+//            // отрисовать буфер
+//            ctx.stroke()
 //        }
-//        // отрисовать буфер
-//        ctx.stroke()
-//    }
 
 
-//    function drawMinorMarks(ctx) {
-//        ctx.beginPath();
-//        // настройки мелких насечек
-//        ctx.strokeStyle = minorMarkColor
-//        ctx.fillStyle = minorMarkColor
-//        ctx.font = "bold 14px serif"
-//        ctx.lineWidth = 3
-//        //
-//        for(let i = 10; i < 360; i+=10) {
-//            // если угол соответствует большой насечке, пропускаем
-//            if (i % 90 === 0)
-//                continue
+//        function drawMajorMarks(ctx) {
+//            ctx.beginPath();
+//            // настройки крупных насечек
+//            ctx.strokeStyle = majorMarkColor
+//            ctx.fillStyle = majorMarkColor
+//            ctx.font = "bold 18px serif"
+//            ctx.lineWidth = 3
+//            ctx.textAlign = "center"
+//            //
+//            for(let i = 0; i < 360; i+=45) {
+//                // сместить начало координат в центр циферблата
+//                ctx.translate(width / 2, height / 2)
+//                // повернуть относительно центра циферблата
+//                ctx.rotate(i * Math.PI / 180)
+//                //
+//                // текст насечки
+//                const markLabel = i
+//                const labelX = 0
+//                const labelY = -dialSize/*height*/ / 2 + majorLetterSize
+//                // отобразить текст
+//                if (i % 90 === 0)
+//                    ctx.fillText(markLabel, labelX, labelY)
+//                //
+//                // позиция насечки
+//                const majorMarkY1 = labelY + itemSpacing
+//                const majorMarkY2 = majorMarkY1 + majorMarkSize
+//                ctx.moveTo(0, majorMarkY1)
+//                ctx.lineTo(0, majorMarkY2)
+//                //
+//                // полюс
+//                const poleLetter = mapPoles.get(i)
+//                if (poleLetter) {
+//                    // сохранить контекст
+//                    ctx.save()
+//                    // привязать вывод текста к его центру
+//                    ctx.textBaseline = "middle"
+//                    // сместить контекст в центр буквы
+//                    const poleY = majorMarkY2 + itemSpacing + 20
+//                    ctx.translate(labelX, poleY)
+//                    // развернуть букву в вертикальное положение
+//                    const letterAngle = -i - canvas.rotation
+//                    ctx.rotate((letterAngle)* Math.PI / 180)
+//                    // шрифт
+//                    const fontSize = (poleLetter.length === 1 ? 18 : 12)
+//                    ctx.font = `bold ${fontSize}px serif`
+//                    // отобразить букву
+//                    ctx.fillText(poleLetter, 0, 0)
+//                    // восстановить контекст
+//                    ctx.restore()
+//                }
+//                // сбросить трансформации
+//                ctx.resetTransform()
+//            }
+//            // отрисовать буфер
+//            ctx.stroke()
+//        }
+
+
+//        function drawMinorMarks(ctx) {
+//            ctx.beginPath();
+//            // настройки мелких насечек
+//            ctx.strokeStyle = minorMarkColor
+//            ctx.fillStyle = minorMarkColor
+//            ctx.font = "bold 14px serif"
+//            ctx.lineWidth = 3
+//            //
+//            for(let i = 10; i < 360; i+=10) {
+//                // если угол соответствует большой насечке, пропускаем
+//                if (i % 90 === 0)
+//                    continue
+//                //
+//                // сместить начало координат в центр циферблата
+//                ctx.translate(width / 2, height / 2)
+//                // повернуть относительно центра циферблата
+//                ctx.rotate(i * Math.PI / 180)
+//                //
+//                // текст насечки
+//                const markLabel = i
+//                const labelX = 0
+//                const labelY = -dialSize / 2 + majorLetterSize
+//                // отобразить текст
+//                if (i % 30 === 0)
+//                    ctx.fillText(markLabel, labelX, labelY)
+//                //
+//                // позиция насечки
+//                const majorMarkY1 = labelY + itemSpacing
+//                const majorMarkY2 = majorMarkY1 + minorMarkSize
+//                ctx.moveTo(0, majorMarkY1)
+//                ctx.lineTo(0, majorMarkY2)
+//                // сбросить трансформации
+//                ctx.resetTransform()
+//            }
+//            // отрисовать буфер
+//            ctx.stroke()
+//        }
+
+
+//        function drawValue(ctx) {
+//            ctx.beginPath()
+//            // настройки
+//            ctx.strokeStyle = "white"
+//            ctx.fillStyle = "white"
+//            ctx.lineWidth = 2
+//            ctx.font = "bold 30px serif"
+//            ctx.textAlign = "center"
+//            ctx.textBaseline = "middle"
 //            //
 //            // сместить начало координат в центр циферблата
 //            ctx.translate(width / 2, height / 2)
 //            // повернуть относительно центра циферблата
-//            ctx.rotate(i * Math.PI / 180)
-//            //
-//            // текст насечки
-//            const markLabel = i
-//            const labelX = 0
-//            const labelY = -dialSize / 2 + majorLetterSize
-//            // отобразить текст
-//            if (i % 30 === 0)
-//                ctx.fillText(markLabel, labelX, labelY)
-//            //
-//            // позиция насечки
-//            const majorMarkY1 = labelY + itemSpacing
-//            const majorMarkY2 = majorMarkY1 + minorMarkSize
-//            ctx.moveTo(0, majorMarkY1)
-//            ctx.lineTo(0, majorMarkY2)
+//            ctx.rotate(-canvas.rotation * Math.PI / 180)
+//            // фигура в центре
+//            ctx.ellipse(-50, -50, 100, 100, 0, 0, 2 * Math.PI);
+//            // значение в центре
+//            ctx.fillText(`${(Math.round(azimuth) + 360) % 360}°`, 0, 0)
+//            // ... и отрисовать контур
+//            ctx.stroke()
 //            // сбросить трансформации
 //            ctx.resetTransform()
 //        }
-//        // отрисовать буфер
-//        ctx.stroke()
+
+
+//        onPaint: drawCompass()
 //    }
 
 
-//    function drawArrow(ctx) {
-//        ctx.beginPath()
-//        // настройки мелких насечек
-//        ctx.strokeStyle = arrowStrokeColor
-//        ctx.fillStyle = arrowFillColor
-//        ctx.lineWidth = 1
-//        //
-//        // сместить начало координат в центр циферблата
-//        ctx.translate(width / 2, height / 2)
-//        // повернуть относительно центра циферблата
-//        ctx.rotate(-canvas.rotation * Math.PI / 180)
-//        // вернуться в начало координат
-//        ctx.translate(-dialSize/*width*/ / 2, -dialSize/*height*/ / 2)
-//        //
-//        // смещение стрелки по Y
-//        const arrowY = majorLetterSize + itemSpacing + minorMarkSize
-//        // сместить контекст
-//        ctx.translate(dialSize/*canvasSize.width*/ / 2, arrowY)
-//        // нарисовать стрелку
-//        ctx.moveTo(0, 0)
-//        ctx.lineTo(-arrowSize / 2, arrowSize)
-//        ctx.lineTo(arrowSize / 2, arrowSize)
-//        // залить ...
-//        ctx.fill()
-//        // ... и отрисовать контур
-//        ctx.stroke()
-//        // сбросить трансформации
-//        ctx.resetTransform()
+//    Canvas {
+//        id: canvasArrow
+
+//        anchors.fill: parent
+
+
+//        function drawArrow() {
+//            // получить контекст
+//            var ctx = canvasArrow.getContext("2d")
+//            // очистить
+//            ctx.reset()
+//            //
+//            ctx.beginPath()
+//            // настройки мелких насечек
+//            ctx.strokeStyle = arrowStrokeColor
+//            ctx.fillStyle = arrowFillColor
+//            ctx.lineWidth = 1
+//            //
+//            // сместить начало координат в центр циферблата
+//            ctx.translate(width / 2, height / 2)
+//            //
+//            // смещение стрелки по Y
+//            const arrowY = -dialSize / 2 + majorLetterSize + itemSpacing + minorMarkSize
+//            // сместить контекст
+//            ctx.translate(0, arrowY)
+//            // нарисовать стрелку
+//            ctx.moveTo(0, 0)
+//            ctx.lineTo(-arrowSize / 2, arrowSize)
+//            ctx.lineTo(arrowSize / 2, arrowSize)
+//            // залить ...
+//            ctx.fill()
+//            // ... и отрисовать контур
+//            ctx.stroke()
+//            // сбросить трансформации
+//            ctx.resetTransform()
+//        }
+
+//        onPaint: drawArrow()
 //    }
-
-
-//    function drawValue(ctx) {
-//        ctx.beginPath()
-//        // настройки
-//        ctx.strokeStyle = "white"
-//        ctx.fillStyle = "white"
-//        ctx.lineWidth = 2
-//        ctx.font = "bold 30px serif"
-//        ctx.textAlign = "center"
-//        ctx.textBaseline = "middle"
-//        //
-//        // сместить начало координат в центр циферблата
-//        ctx.translate(width / 2, height / 2)
-//        // повернуть относительно центра циферблата
-//        ctx.rotate(-canvas.rotation * Math.PI / 180)
-//        // фигура в центре
-//        ctx.ellipse(-50, -50, 100, 100, 0, 0, 2 * Math.PI);
-//        // значение в центре
-//        ctx.fillText(`${azimuth}°`, 0, 0)
-//        // ... и отрисовать контур
-//        ctx.stroke()
-//        // сбросить трансформации
-//        ctx.resetTransform()
-//    }
-
-
-//    onPaint: drawCompass()
 //}
 
 
@@ -284,27 +301,15 @@ Item {
     width: 300
     height: 300
 
-//    rotation: -azimuth
-
-//    function setAzimuth(azimuth) {
-//        this.azimuth = (azimuth ? azimuth : 0)
-////        canvas.requestPaint()
-//    }
-
-    onAzimuthChanged: {
-        canvas.requestPaint()
-    }
-
-
 
     Canvas {
-        id: canvas
+        id: canvasMarks
         anchors.fill: parent
         rotation: -azimuth
 
-        function drawCompass() {
+        function draw() {
             // получить контекст
-            var ctx = canvas.getContext("2d")
+            var ctx = canvasMarks.getContext("2d")
             // очистить
             ctx.reset()
             // деления градусов
@@ -313,10 +318,6 @@ Item {
             drawMajorMarks(ctx)
             // маленькие насечки
             drawMinorMarks(ctx)
-//            // стрелка
-//            drawArrow(ctx)
-            // значение компаса
-            drawValue(ctx)
         }
 
 
@@ -373,28 +374,6 @@ Item {
                 const majorMarkY2 = majorMarkY1 + majorMarkSize
                 ctx.moveTo(0, majorMarkY1)
                 ctx.lineTo(0, majorMarkY2)
-                //
-                // полюс
-                const poleLetter = mapPoles.get(i)
-                if (poleLetter) {
-                    // сохранить контекст
-                    ctx.save()
-                    // привязать вывод текста к его центру
-                    ctx.textBaseline = "middle"
-                    // сместить контекст в центр буквы
-                    const poleY = majorMarkY2 + itemSpacing + 20
-                    ctx.translate(labelX, poleY)
-                    // развернуть букву в вертикальное положение
-                    const letterAngle = -i - canvas.rotation
-                    ctx.rotate((letterAngle)* Math.PI / 180)
-                    // шрифт
-                    const fontSize = (poleLetter.length === 1 ? 18 : 12)
-                    ctx.font = `bold ${fontSize}px serif`
-                    // отобразить букву
-                    ctx.fillText(poleLetter, 0, 0)
-                    // восстановить контекст
-                    ctx.restore()
-                }
                 // сбросить трансформации
                 ctx.resetTransform()
             }
@@ -442,47 +421,102 @@ Item {
         }
 
 
-        function drawValue(ctx) {
-            ctx.beginPath()
-            // настройки
-            ctx.strokeStyle = "white"
-            ctx.fillStyle = "white"
-            ctx.lineWidth = 2
-            ctx.font = "bold 30px serif"
-            ctx.textAlign = "center"
-            ctx.textBaseline = "middle"
-            //
-            // сместить начало координат в центр циферблата
-            ctx.translate(width / 2, height / 2)
-            // повернуть относительно центра циферблата
-            ctx.rotate(-canvas.rotation * Math.PI / 180)
-            // фигура в центре
-            ctx.ellipse(-50, -50, 100, 100, 0, 0, 2 * Math.PI);
-            // значение в центре
-            ctx.fillText(`${(Math.round(azimuth) + 360) % 360}°`, 0, 0)
-            // ... и отрисовать контур
-            ctx.stroke()
-            // сбросить трансформации
-            ctx.resetTransform()
+        onPaint: draw()
+
+        Behavior on rotation {
+            RotationAnimation { duration: 500; direction: RotationAnimation.Shortest }
+        }
+    }
+
+
+    Canvas {
+        id: canvasPoles
+        anchors.fill: parent
+        rotation: -azimuth
+
+
+        function draw() {
+            // получить контекст
+            var ctx = canvasPoles.getContext("2d")
+            // очистить
+            ctx.reset()
+            // полюса
+            drawPoleLetters(ctx)
         }
 
 
-        onPaint: drawCompass()
+        function drawPoleLetters(ctx) {
+            ctx.beginPath();
+            // настройки крупных насечек
+            ctx.strokeStyle = majorMarkColor
+            ctx.fillStyle = majorMarkColor
+            ctx.font = "bold 18px serif"
+            ctx.lineWidth = 3
+            ctx.textAlign = "center"
+            //
+            for(let i of mapPoles.keys()) {
+                // сместить начало координат в центр циферблата
+                ctx.translate(width / 2, height / 2)
+                // повернуть относительно центра циферблата
+                ctx.rotate(i * Math.PI / 180)
+                // позиция насечки
+                const majorMarkY1 = -dialSize / 2 + majorLetterSize + itemSpacing
+                const majorMarkY2 = majorMarkY1 + majorMarkSize
+                //
+                // полюс
+                const poleLetter = mapPoles.get(i)
+                if (poleLetter) {
+                    // сохранить контекст
+                    ctx.save()
+                    // привязать вывод текста к его центру
+                    ctx.textBaseline = "middle"
+                    // сместить контекст в центр буквы
+                    const poleY = majorMarkY2 + itemSpacing + 20
+                    ctx.translate(0, poleY)
+                    // развернуть букву в вертикальное положение
+                    const letterAngle = (-i - canvasMarks.rotation + 360) % 360
+                    ctx.rotate((letterAngle)* Math.PI / 180)
+                    // шрифт
+                    const fontSize = (poleLetter.length === 1 ? 18 : 12)
+                    ctx.font = `bold ${fontSize}px serif`
+                    // отобразить букву
+                    ctx.fillText(poleLetter, 0, 0)
+                    // восстановить контекст
+                    ctx.restore()
+                }
+                // сбросить трансформации
+                ctx.resetTransform()
+            }
+            // отрисовать буфер
+            ctx.stroke()
+        }
+
+
+        onPaint: draw()
+        onRotationChanged: canvasPoles.requestPaint()
+
+        Behavior on rotation {
+            RotationAnimation { duration: 500; direction: RotationAnimation.Shortest }
+        }
     }
 
 
     Canvas {
         id: canvasArrow
-
         anchors.fill: parent
 
-
-        function drawArrow() {
+        function draw() {
             // получить контекст
             var ctx = canvasArrow.getContext("2d")
             // очистить
             ctx.reset()
             //
+            drawArrow(ctx)
+            drawValueBorder(ctx)
+        }
+
+
+        function drawArrow(ctx) {
             ctx.beginPath()
             // настройки мелких насечек
             ctx.strokeStyle = arrowStrokeColor
@@ -508,7 +542,47 @@ Item {
             ctx.resetTransform()
         }
 
-        onPaint: drawArrow()
+
+        function drawValueBorder(ctx) {
+            ctx.beginPath()
+            // настройки
+            ctx.strokeStyle = "white"
+            ctx.fillStyle = "white"
+            ctx.lineWidth = 2
+            ctx.font = "bold 30px serif"
+            ctx.textAlign = "center"
+            ctx.textBaseline = "middle"
+            //
+            // сместить начало координат в центр циферблата
+            ctx.translate(width / 2, height / 2)
+            // фигура в центре
+            ctx.ellipse(-50, -50, 100, 100, 0, 0, 2 * Math.PI);
+            // ... и отрисовать контур
+            ctx.stroke()
+            // сбросить трансформации
+            ctx.resetTransform()
+        }
+
+        onPaint: draw()
+
     }
+
+
+
+    Item {
+        id: itemLabel
+        anchors.fill: parent
+
+        Label {
+            id: lblAngle
+            font.pixelSize: 30
+            font.bold: true
+            color: "white"
+            anchors.centerIn: itemLabel
+            text: `${((-canvasMarks.rotation + 360) % 360).toFixed(1)}°`
+        }
+    }
+
 }
+
 

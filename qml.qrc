@@ -36,5 +36,6 @@
         <file>qml/Logic/qmldir</file>
         <file>qml/SensorDetailPages/CompassDetailPage.qml</file>
         <file>qml/SensorDetailPages/CompassView.qml</file>
+        <file>qml/SensorDetailPages/GyroscopeDetailPage.qml</file>
     </qresource>
 </RCC>

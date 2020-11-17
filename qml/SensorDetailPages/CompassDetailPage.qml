@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.13
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
@@ -47,45 +47,7 @@ Page {
                 azimuth: 0
             }
 
-
-            SequentialAnimation {
-                id: rotationAnimation
-                running: false
-                loops: 1
-
-//                PauseAnimation {
-//                    duration: 1000
-//                }
-
-                NumberAnimation {
-                    id: azimuthAnimation
-                    target: compassView
-                    property: "azimuth"
-                    easing.type: Easing.InOutSine
-                    duration: pollInterval
-                }
-            }
-
         }
-
-//        Label {
-//            id: txtTitle
-//            text: "Азимут:"
-//            font.pixelSize: 20
-//            font.bold: true
-//            Layout.alignment: Layout.Center
-//            color: fontColor
-//            elide: Text.ElideMiddle
-//        }
-//        Label {
-//            id: txtAzimuth
-//            font.pixelSize: 20
-//            font.bold: true
-//            Layout.alignment: Layout.Center
-//            bottomPadding: 20
-//            color: fontColor
-//            elide: Text.ElideMiddle
-//        }
     }
 
 
@@ -143,53 +105,17 @@ Page {
             sensorData.splice(0, sensorData.length)
             // сумма значений
             const lastValue = data[data.length - 1]
-
-//            console.log("До:", [...data])
-
             const delta = 15
-
-            if ((lastValue > -delta) && (lastValue < delta))
+            if ((lastValue > -delta) && (lastValue < delta)) {
                 data = data.map(v => (v > 270 ? (v - 360) % 360 : v))
-
+            }
             data = data.filter(v => Math.abs(v - lastValue) < delta)
-
-//            console.log("После:", [...data])
-
             const sum = data.reduce((prev, cur) => prev + cur)
             // среднее значение
             avgValue = Math.round(sum / data.length)
-
-//            console.log("Среднее:", avgValue)
         }
         // отобразить значение
-//        compassView.setAzimuth(avgValue)
-
-//        rotationAnimation.angleTo = compassView.azimuth + 20
-
-//        rotationAnimation.angleTo = (avgValue + 360) % 360
-
-        rotationAnimation.stop()
-//        updateAzimuth(azimuthAnimation.to - 50)
-        updateAzimuth(avgValue)
-        rotationAnimation.start()
+        compassView.azimuth = avgValue
+//        compassView.azimuth = ((compassView.azimuth - 50) + 360) % 360
     }
-
-
-    function updateAzimuth(value) {
-        let from = (azimuthAnimation.to + 360) % 360
-        let to = (value + 360) % 360
-
-        console.log(`from: ${from};   to: ${to}`)
-
-        const delta = to - from
-        if (Math.abs(delta) > 180) {
-            const sign =(delta > 0 ? 1 : -1)
-            const diff = delta - 360 * sign
-            to = from + diff /** sign*/
-        }
-
-        azimuthAnimation.from = from
-        azimuthAnimation.to = to
-    }
-
 }
