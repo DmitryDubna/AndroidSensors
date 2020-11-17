@@ -86,7 +86,7 @@ GroupBox {
 
     // компонент
     ListView {
-        id: view
+        id: listView
         clip: true
         anchors.fill: parent
         model: modelSensorList
@@ -95,6 +95,11 @@ GroupBox {
         //        highlight: highlight
         //        highlightFollowsCurrentItem: false
         focus: true
+
+        MouseArea {
+            id: maListView
+            anchors.fill: parent
+        }
     }
 
 
@@ -116,8 +121,8 @@ GroupBox {
 
     states: [
         State {
-            name: "hovered"
-            when: root.hovered
+            name: "pressed"
+            when: maListView.containsPress/*root.hovered*/
 
             PropertyChanges {
                 target: root

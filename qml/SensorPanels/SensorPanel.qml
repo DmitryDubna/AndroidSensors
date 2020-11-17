@@ -6,7 +6,7 @@ import QtGraphicalEffects 1.0
 GroupBox {
     id: root
 
-    anchors.margins: 20
+    anchors.margins: 10
 
     property var sensor: undefined
     property string color: "transparent"
@@ -37,6 +37,7 @@ GroupBox {
             brightness: 0.5
         }
         MouseArea {
+            id: maBackground
             anchors.fill: parent
             onClicked: root.clicked()
         }
@@ -54,8 +55,8 @@ GroupBox {
 
     states: [
         State {
-            name: "hovered"
-            when: root.hovered
+            name: "pressed"
+            when: maBackground.containsPress
 
             PropertyChanges {
                 target: bcEffect
