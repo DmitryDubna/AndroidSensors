@@ -3,75 +3,10 @@ import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.0
 
 
-//Frame {
-//    id: control
-//    //     title: qsTr("GroupBox")
-//    property string title: "SensorPanel"
-//    property string color: "white"
-
-//    background: Item {
-//        layer.enabled: true
-
-//        opacity: 1
-
-//        Rectangle {
-//            id: rectBackgnd
-//            anchors.left: parent.left
-//            anchors.right: parent.right
-//            anchors.bottom: parent.bottom
-//            anchors.top: parent.top
-//            anchors.topMargin: lblBackgnd.height / 2
-//            anchors.bottomMargin: anchors.topMargin
-//            border.color: "black"
-//            radius: 10
-//        }
-//        Label {
-//            id: lblBackgnd
-//            text: control.title
-////            anchors.horizontalCenter: parent.horizontalCenter
-//            anchors.top: control.top
-
-//            background: Rectangle {
-//                width: lblBackgnd.width
-//                height: lblBackgnd.height
-//                color: control.color === "transparent" ? "white" : control.color
-//                border.color: "black"
-//                radius: 10
-//            }
-//        }
-//    }
-//}
-
-
-//GroupBox {
-//      id: control
-//      title: qsTr("GroupBox")
-
-//      background: Rectangle {
-////          y: control.topPadding - control.bottomPadding
-////          width: parent.width
-////          height: parent.height - control.topPadding + control.bottomPadding
-//          color: "transparent"
-//          border.color: "#21be2b"
-//          radius: 2
-//      }
-
-//      label: Label {
-//          x: control.leftPadding
-//          width: control.availableWidth
-//          text: control.title
-//          color: "#21be2b"
-//          elide: Text.ElideRight
-//      }
-
-//      Label {
-//          text: qsTr("Content goes here!")
-//      }
-//  }
-
-
 GroupBox {
     id: root
+
+    anchors.margins: 20
 
     property var sensor: undefined
     property string color: "transparent"
@@ -95,9 +30,11 @@ GroupBox {
             visible: false
         }
         BrightnessContrast {
+            id: bcEffect
             anchors.fill: rectBackgnd
             source: rectBackgnd
-            brightness: root.hovered ? 0 : 0.5
+//            brightness: root.hovered ? 0 : 0.5
+            brightness: 0.5
         }
         MouseArea {
             anchors.fill: parent
@@ -113,4 +50,45 @@ GroupBox {
         anchors.right: root.right
         anchors.leftMargin: root.leftPadding
     }
+
+
+    states: [
+        State {
+            name: "hovered"
+            when: root.hovered
+
+            PropertyChanges {
+                target: bcEffect
+                brightness: 0
+            }
+            PropertyChanges {
+                target: txtTitle
+                font.pixelSize: 16
+            }
+            PropertyChanges {
+                target: root
+                anchors.margins: 6
+            }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            to: "*"
+            NumberAnimation {
+                target: bcEffect
+                property: "brightness"
+                duration: 500
+            }
+            NumberAnimation {
+                target: txtTitle
+                property: "font.pixelSize"
+                duration: 500
+            }
+            NumberAnimation {
+                target: root
+                property: "anchors.margins"
+            }
+        }
+    ]
 }

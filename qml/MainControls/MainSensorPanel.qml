@@ -11,7 +11,7 @@ Page {
     id: root
     title: "Общие сведения"
 
-    property var marginValue: 0
+//    property var marginValue: 20
     property var model: null
 
     signal sensorPanelClicked(string sensorTypeName)
@@ -45,7 +45,7 @@ Page {
         // ... и настроить ее
         panel.anchors.left = containerSensorPanels.left
         panel.anchors.right = containerSensorPanels.right
-        panel.anchors.margins = marginValue
+//        panel.anchors.margins = marginValue
         panel.color = "lightgreen"
         panel.title = `<b>${sensor.displayName}</b>`
         // установить датчик
@@ -63,11 +63,16 @@ Page {
         clip: true
 
         // ===== Список датчиков =====
-        SensorListView {
-            id: sensorListView
+        Item {
             width: parent.width
             height: 200
-            listColor: "#ddd"
+
+            SensorListView {
+                id: sensorListView
+                anchors.fill: parent
+                anchors.margins: 10
+                listColor: "#ddd"
+            }
         }
 
         // ===== Панели датчиков =====

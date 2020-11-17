@@ -7,15 +7,13 @@ GroupBox {
     id: root
     antialiasing: true
     title: "<b>Доступные датчики</b>"
-    property string listColor: "transparent"
 
+    property string listColor: "transparent"
     property var availableSensors: []
 
     background: Rectangle {
         id: rectBackgnd
-        y: root.topPadding - root.bottomPadding
-        width: root.width
-        height: parent.height - root.topPadding + root.bottomPadding
+        anchors.fill: root
         color: root.listColor
         border.color: "black"
         radius: 10
@@ -24,6 +22,9 @@ GroupBox {
     label: Text {
         id: txtTitle
         text: qsTr(root.title)
+        anchors.left: root.left
+        anchors.right: root.right
+        anchors.leftMargin: root.leftPadding
     }
 
 
@@ -74,12 +75,12 @@ GroupBox {
             color: listColor
             radius: 5
             //            y: view.currentItem.y
-            //            Behavior on y {
-            //                SpringAnimation {
-            //                    spring: 3
-            //                    damping: 0.2
-            //                }
-            //            }
+//                        Behavior on y {
+//                            SpringAnimation {
+//                                spring: 3
+//                                damping: 0.2
+//                            }
+//                        }
         }
     }
 
@@ -111,5 +112,29 @@ GroupBox {
     function clearSensorNames() {
         modelSensorList.clear()
     }
+
+
+    states: [
+        State {
+            name: "hovered"
+            when: root.hovered
+
+            PropertyChanges {
+                target: root
+                listColor: "white"
+            }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            to: "*"
+            ColorAnimation {
+                target: root
+                property: "listColor"
+                duration: 500
+            }
+        }
+    ]
 }
 

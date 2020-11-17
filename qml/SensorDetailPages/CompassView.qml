@@ -302,6 +302,8 @@ Item {
     height: 300
 
 
+    // статическое изображение делений компаса
+    // (только поворот)
     Canvas {
         id: canvasMarks
         anchors.fill: parent
@@ -429,6 +431,7 @@ Item {
     }
 
 
+    // динамическое изображение полюсов
     Canvas {
         id: canvasPoles
         anchors.fill: parent
@@ -501,6 +504,7 @@ Item {
     }
 
 
+    // статическое изображение стрелки и контура вокруг значения азимута
     Canvas {
         id: canvasArrow
         anchors.fill: parent
@@ -564,11 +568,11 @@ Item {
         }
 
         onPaint: draw()
-
     }
 
 
 
+    // значение азимута
     Item {
         id: itemLabel
         anchors.fill: parent

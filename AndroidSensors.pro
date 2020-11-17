@@ -1,4 +1,4 @@
-QT += quick
+QT += quick sensors
 
 CONFIG += c++11
 

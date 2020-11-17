@@ -1,5 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QtSensors/QGyroscope>
+
 
 int main(int argc, char *argv[])
 {

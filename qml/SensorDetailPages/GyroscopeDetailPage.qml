@@ -46,10 +46,37 @@ Page {
                 color: "red"
                 antialiasing: true
 
+//                property int angle: 0
+
+//                Behavior on angle {
+//                    ParallelAnimation {
+//                        RotationAnimation {
+//                            target: textAngle
+//                            property: "rotation"
+//                            to: -rect.angle
+//                            duration: 1000
+//                            direction: RotationAnimation.Shortest
+//                        }
+//                        RotationAnimation {
+//                            target: rect
+//                            property: "rotation"
+//                            to: rect.angle
+//                            duration: 1000
+//                            direction: RotationAnimation.Shortest
+//                        }
+//                    }
+//                }
+
+
                 Text {
                     id: textAngle
                     anchors.centerIn: rect
                     text: ((rect.rotation + 360) % 360).toFixed(1)
+                    rotation: -rect.rotation
+
+                    Behavior on rotation {
+                        RotationAnimation { duration: 1000; direction: RotationAnimation.Shortest }
+                    }
                 }
 
                 //                states: [
@@ -74,12 +101,13 @@ Page {
                 //            }
 
                 MouseArea {
-                    anchors.fill: parent;
+                    anchors.fill: parent
                     onClicked: rect.rotation = (rect.rotation + 30 + 360) % 360
+//                    onClicked: rect.angle += 30
                 }
 
                 Behavior on rotation {
-                    animation: RotationAnimation { duration: 1000; direction: RotationAnimation.Shortest }
+                    RotationAnimation { duration: 1000; direction: RotationAnimation.Shortest }
                 }
             }
         }
@@ -100,4 +128,5 @@ Page {
 //        if (value)
 //            sensorData.push(value)
     }
+
 }
